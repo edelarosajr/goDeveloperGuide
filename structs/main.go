@@ -12,6 +12,8 @@ type person struct {
 	contact   contactInfo
 }
 
+// Go is "Pass by Value"
+// a slice is a pointer variable
 func main() {
 
 	/*
@@ -32,14 +34,6 @@ func main() {
 	babaYaga.lastName = "Wick"
 	babaYaga.contact = contactInfo{email: "jwick@continental.com", zip: 43823}
 
-	babaYagaPtr := &babaYaga
-	//babaYaga.updateNamePtr("Swordsman")
-	babaYagaPtr.updateNameValue("Gunslinger")
-	babaYaga.print()
-	babaYaga.updateNamePtr("Ballerina")
-	babaYaga.print()
-	//babaYagaPtr.updateNamePtr("Ballerina")
-	//babaYaga.print()
 }
 
 /* passed by value
@@ -48,13 +42,22 @@ func (p person) updateName(newFirstName string) {
 }
 */
 
+/*
+	Learnings
+ 1. You do not need to use an asterisk* to refer to a value in a function that had a pointer as a receiver
+ 2. When it comes to functions, think that the function can either change the original value (ptr receiver)
+    or modifies a copy (value receiver). How you call it is irrelevant an Go will dereference where necessary.
+ 3. In the end what matters is point 2: think from the POV of the function and what needs changing
+ 4. Printing the value of a pointer for a basic value (int, string, bool) will print the address;
+    for a complex value like struct will print the underlying value as the address would be too complex
+*/
 func (pointerToPerson *person) updateNamePtr(newFirstName string) {
-	(*pointerToPerson).firstName = newFirstName
+	pointerToPerson.firstName = newFirstName
 }
 func (p person) updateNameValue(newFirstName string) {
 	p.firstName = newFirstName
 }
 func (p person) print() {
-	fmt.Println("")
 	fmt.Printf("%+v", p)
+	fmt.Println("")
 }
