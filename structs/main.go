@@ -43,13 +43,17 @@ func (p person) updateName(newFirstName string) {
 */
 
 /*
-	Learnings
+# Learnings on Pointers
  1. You do not need to use an asterisk* to refer to a value in a function that had a pointer as a receiver
  2. When it comes to functions, think that the function can either change the original value (ptr receiver)
     or modifies a copy (value receiver). How you call it is irrelevant an Go will dereference where necessary.
  3. In the end what matters is point 2: think from the POV of the function and what needs changing
- 4. Printing the value of a pointer for a basic value (int, string, bool) will print the address;
+ 4. Printing the value of a pointer for a primitive type (int, string, bool) will print the address;
     for a complex value like struct will print the underlying value as the address would be too complex
+ 5. A slice is really a struct with (ptr head, capacity, and lenght). When passed to a value function, a copy is made,
+    but the copy is still pointing to the same value.
+ 6. Value types: int, float, string, booo, structs. Use PTRs to change in a function
+ 7. reference types: slices, maps, channels, pointers, functions. Dont need to worry about PTRs to change in a function
 */
 func (pointerToPerson *person) updateNamePtr(newFirstName string) {
 	pointerToPerson.firstName = newFirstName
